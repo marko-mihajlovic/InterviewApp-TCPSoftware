@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:backgroundTint="@color/white"
+
+    android:focusable="true"
+    android:clickable="true"
+
+    app:cardUseCompatPadding="true"
+    app:cardElevation="0dp"
+    app:cardCornerRadius="5dp"
+
+    android:layout_marginTop="10dp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:minHeight="80dp"
+        android:padding="10dp"
+        >
+
+        <TextView
+            android:id="@+id/taskTitleTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Task Title"
+            android:textColor="@color/red"
+            android:fontFamily="@font/amsipro_bold"
+            android:textSize="19sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/lineView"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+
+            android:background="@color/beige"
+            android:layout_marginTop="7dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/taskTitleTxt"
+            />
+
+        <TextView
+            android:id="@+id/dueDateTitleTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Due Date"
+            android:textColor="@color/blackSecondary"
+            android:fontFamily="@font/amsipro_regular"
+            android:textSize="13sp"
+            android:layout_marginTop="10dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lineView" />
+
+        <TextView
+            android:id="@+id/daysLeftTitleTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Days left"
+            android:textColor="@color/blackSecondary"
+            android:fontFamily="@font/amsipro_regular"
+            android:textSize="13sp"
+            android:layout_marginTop="10dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lineView" />
+
+        <TextView
+            android:id="@+id/dueDateValueTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Aug 21 2021"
+            android:textColor="@color/red"
+            android:fontFamily="@font/amsipro_bold"
+            android:textSize="19sp"
+
+            android:layout_marginTop="7dp"
+
+            app:layout_constraintEnd_toStartOf="@+id/daysLeftValueTxt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dueDateTitleTxt" />
+
+        <TextView
+            android:id="@+id/daysLeftValueTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="12"
+            android:textColor="@color/red"
+            android:fontFamily="@font/amsipro_bold"
+            android:textSize="19sp"
+
+            android:layout_marginTop="7dp"
+
+            android:gravity="end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/dueDateValueTxt"
+            app:layout_constraintTop_toBottomOf="@+id/dueDateTitleTxt" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

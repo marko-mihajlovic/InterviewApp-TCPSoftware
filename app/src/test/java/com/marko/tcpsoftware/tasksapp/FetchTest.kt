@@ -3,30 +3,48 @@ package com.marko.tcpsoftware.tasksapp
 import com.marko.tcpsoftware.tasksapp.model.Task
 import com.marko.tcpsoftware.tasksapp.model.TaskResult
 import com.marko.tcpsoftware.tasksapp.repository.tasks.TasksRepository
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
 
 class FetchTest {
 
     @Test
-    fun testFetchTasks() {
-        val taskResult : TaskResult? = TasksRepository().makeCall()?.execute()?.body()
-        Assert.assertNotNull(taskResult)
+    fun fetchV2() = runBlocking{
+        val response = TasksRepository().getTask()
 
-        for (task in taskResult!!.taskList) {
-            println("task: $task")
+        if (response.isSuccessful) {
+            print("Successful\n")
+
+            val taskResult : TaskResult? = response.body()
+            Assert.assertNotNull(taskResult)
+
+            for (task in taskResult!!.taskList) {
+                println("task: $task")
+            }
+        } else {
+            print("Error: ${response.code()}")
         }
     }
 
     @Test
-    fun testFetchAndSortTasks() {
-        val taskResult : TaskResult? = TasksRepository().makeCall()?.execute()?.body()
-        Assert.assertNotNull(taskResult)
+    fun fetchAndSortV2() = runBlocking{
+        val response = TasksRepository().getTask()
 
-        val taskList: List<Task> = TasksRepository().defaultSort(taskResult!!.taskList)
+        if (response.isSuccessful) {
+            print("Successful\n")
 
-        for (task in taskList) {
-            println("task: ${task.toStringShort()}")
+            val taskResult : TaskResult? = response.body()
+            Assert.assertNotNull(taskResult)
+
+            val taskList : List<Task>? = TasksRepository().defaultSort(taskResult!!.taskList)
+
+            for (task in taskList!!) {
+                println("task: ${task.toStringShort()}")
+            }
+        } else {
+            print("Error: ${response.code()}")
         }
     }
+
 }

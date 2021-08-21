@@ -1,7 +1,7 @@
 package com.marko.tcpsoftware.tasksapp.model
 
 import com.google.gson.annotations.SerializedName
-import com.marko.tcpsoftware.tasksapp.util.FormatDate
+import com.marko.tcpsoftware.tasksapp.util.getReadableFormat
 import java.util.*
 
 data class Task(
@@ -14,7 +14,11 @@ data class Task(
 ){
 
     fun getTargetDateFormatted() : String{
-        return FormatDate().getReadableFormat(targetDate)
+        return getReadableFormat(targetDate)
+    }
+
+    fun getDueDateFormatted() : String{
+        return getReadableFormat(dueDate)
     }
 
     fun toStringShort(): String {
