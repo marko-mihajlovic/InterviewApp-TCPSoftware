@@ -9,18 +9,25 @@ import androidx.lifecycle.ViewModelProvider
 import com.marko.tcpsoftware.tasksapp.adapter.TasksAdapter
 import com.marko.tcpsoftware.tasksapp.databinding.TasksFragmentBinding
 import com.marko.tcpsoftware.tasksapp.model.Task
+import com.marko.tcpsoftware.tasksapp.util.dateMinusOneDay
+import com.marko.tcpsoftware.tasksapp.util.datePlusOneDay
+import com.marko.tcpsoftware.tasksapp.util.getTodayDate
 
 class TasksFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = TasksFragment()
+    companion object { fun newInstance() = TasksFragment() }
+
+    enum class VISIBLE_LAYOUT {
+        LIST, NO_TASKS, LOADING
     }
 
     private lateinit var binding: TasksFragmentBinding
     private var viewModel: TasksViewModel? = null
     private var newsAdapter: TasksAdapter? = null
+    private var visibleLayout : VISIBLE_LAYOUT = VISIBLE_LAYOUT.LOADING
+    private var areButtonsEnabled : Boolean = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = TasksFragmentBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -28,15 +35,22 @@ class TasksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        toggleVisibleLayout()
         confListAndAdapter()
         confViewModel()
+        onClickListeners()
 
     }
 
     private fun confViewModel() {
         viewModel = ViewModelProvider(this).get(TasksViewModel::class.java)
-        viewModel?.taskList?.observe(viewLifecycleOwner, {
+        viewModel?.getTasksForSelectedDay()?.observe(viewLifecycleOwner, {
             updateUI(it)
+        })
+
+        viewModel?.titleDay?.observe(viewLifecycleOwner,{
+            binding.titleTxt.text = it
+            binding.noTasksTxt.text = "No tasks for $it"
         })
     }
 
@@ -47,5 +61,37 @@ class TasksFragment : Fragment() {
 
     private fun updateUI(list: List<Task>?) {
         newsAdapter?.updateTaskList(list)
+        areButtonsEnabled = true
+
+        visibleLayout = if(list.isNullOrEmpty()) VISIBLE_LAYOUT.NO_TASKS else VISIBLE_LAYOUT.LIST
+        toggleVisibleLayout()
+    }
+
+
+    private fun toggleVisibleLayout() {
+        binding.noTasksLayout.visibility = if (visibleLayout==VISIBLE_LAYOUT.NO_TASKS) View.VISIBLE else View.GONE
+        binding.listView.visibility = if (visibleLayout==VISIBLE_LAYOUT.LIST) View.VISIBLE else View.GONE
+        binding.msgTxt.visibility = if (visibleLayout==VISIBLE_LAYOUT.LOADING) View.VISIBLE else View.GONE
+
+    }
+
+    private fun onClickListeners(){
+        binding.leftArrowBtn.setOnClickListener{
+            if(viewModel!=null && areButtonsEnabled) {
+                viewModel!!.updateSelectedDateAndList(dateMinusOneDay(viewModel!!.selectedDate))
+            }
+        }
+
+        binding.rightArrowBtn.setOnClickListener{
+            if(viewModel!=null && areButtonsEnabled) {
+                viewModel!!.updateSelectedDateAndList(datePlusOneDay(viewModel!!.selectedDate))
+            }
+        }
+
+        binding.titleTxt.setOnClickListener{
+            if(viewModel!=null && areButtonsEnabled) {
+                viewModel!!.updateSelectedDateAndList(getTodayDate())
+            }
+        }
     }
 }

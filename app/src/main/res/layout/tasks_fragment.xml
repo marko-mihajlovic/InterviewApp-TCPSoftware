@@ -14,9 +14,11 @@
         android:id="@+id/msgTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="Loading..."
 
-        android:visibility="gone"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:fontFamily="@font/amsipro_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,6 +61,7 @@
         app:layout_constraintTop_toTopOf="@+id/titleTxt"
         />
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listView"
         android:layout_width="match_parent"
@@ -71,9 +74,57 @@
         android:paddingHorizontal="12dp"
         android:clipToPadding="false"
 
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/titleTxt"
         app:layout_constraintBottom_toBottomOf="parent"
         />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/noTasksLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:visibility="gone"
+        android:layout_margin="24dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTxt"
+        >
+
+        <ImageView
+            android:id="@+id/noTasksImg"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+
+            android:src="@drawable/empty_screen"
+            app:layout_constraintBottom_toTopOf="@+id/noTasksTxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/noTasksTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+
+            android:fontFamily="@font/amsipro_bold"
+            android:gravity="center"
+            android:text="No tasks for today!"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/noTasksImg"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

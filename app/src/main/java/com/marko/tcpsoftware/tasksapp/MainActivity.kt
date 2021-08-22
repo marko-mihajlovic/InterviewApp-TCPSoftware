@@ -12,13 +12,12 @@ class MainActivity : AppCompatActivity() {
 
         val tasksFragment : TasksFragment = TasksFragment.newInstance()
 
-       supportFragmentManager.beginTransaction().apply {
+        supportFragmentManager.beginTransaction().apply {
             replace(R.id.frame, tasksFragment, "TasksFragment")
             show(tasksFragment)
             commit()
         }
 
     }
-
 
 }

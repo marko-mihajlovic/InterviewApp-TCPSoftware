@@ -4,6 +4,7 @@ import com.marko.tcpsoftware.tasksapp.model.Task
 import com.marko.tcpsoftware.tasksapp.model.TaskResult
 import com.marko.tcpsoftware.tasksapp.repository.BaseRepository
 import retrofit2.Response
+import java.util.*
 
 class TasksRepository {
 
@@ -17,4 +18,17 @@ class TasksRepository {
                 .thenBy { it.targetDate })
     }
 
+    fun filterByTargetDate(taskList: List<Task>?, targetDate: Date): List<Task>? {
+        return taskList?.filter {
+            it.targetDate == targetDate
+        }
+    }
+
+    fun filterAndSort(taskList: List<Task>?, targetDate: Date?): List<Task>? {
+        return if(targetDate == null){
+            defaultSort(taskList)
+        }else{
+            defaultSort(filterByTargetDate(taskList, targetDate))
+        }
+    }
 }
