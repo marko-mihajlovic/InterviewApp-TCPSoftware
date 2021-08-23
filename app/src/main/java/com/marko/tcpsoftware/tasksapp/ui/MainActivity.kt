@@ -16,20 +16,20 @@ class MainActivity : AppCompatActivity(), OpenTaskDetailsListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if(viewModel.selectedTask==null)
+        if(viewModel.getSelectedTask()==null)
             openTaskList()
         else
             openTaskDetails()
     }
 
     private fun openTaskList(){
-        viewModel.selectedTask = null
         toggleBackBtn(false)
         supportActionBar?.title = getString(R.string.app_name)
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.frame, TasksFragment.newInstance(), "TasksFragment")
             commit()
         }
+
     }
 
 

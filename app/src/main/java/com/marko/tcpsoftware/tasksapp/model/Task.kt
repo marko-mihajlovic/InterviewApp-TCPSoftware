@@ -13,8 +13,8 @@ data class Task(
     @SerializedName("Description") val description: String,
     @SerializedName("Priority") val priority: Int,
     var status: Int = STATUS_UNRESOLVED,
+    var comment: String?
 ){
-
 
     private fun getTargetDateFormatted() : String{
         return getReadableFormat(targetDate)

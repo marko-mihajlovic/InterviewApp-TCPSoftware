@@ -17,10 +17,16 @@ class TasksViewModel : ViewModel() {
     val today : Date = getTodayDate() // getTodayDate() or getDateExistInDB if we want to test app
     var selectedDate : Date = today
 
+    private var repository : TasksRepository = TasksRepository()
+
     private var taskList : MutableLiveData<List<Task>>? = null
     private var taskListForSelectedDay : MutableLiveData<List<Task>>? = null
     var titleDay : MutableLiveData<String> = MutableLiveData("Today")
-    var selectedTask : Task? = null
+    var selectedTask : MutableLiveData<Task> = MutableLiveData()
+
+    fun getSelectedTask() : Task?{
+        return selectedTask.value
+    }
 
 
     fun getTasksForSelectedDay(): MutableLiveData<List<Task>> {
@@ -37,7 +43,7 @@ class TasksViewModel : ViewModel() {
     private val ioScope by lazy { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
     private fun loadTaskListAsync(){
         ioScope.launch {
-            updateLists(TasksRepository().getTasksOrEmpty())
+            updateLists(repository.getTasksOrEmpty())
         }
     }
 
@@ -52,7 +58,7 @@ class TasksViewModel : ViewModel() {
     }
 
     private fun updateSelectedDayList(taskList : List<Task>?){
-        taskListForSelectedDay?.postValue(TasksRepository().filterAndSort(taskList, selectedDate))
+        taskListForSelectedDay?.postValue(repository.filterAndSort(taskList, selectedDate))
 
         if(isTodaySelected()){
             titleDay.postValue("Today")
@@ -61,10 +67,10 @@ class TasksViewModel : ViewModel() {
         }
     }
 
-    fun updateStatus(status: Int){
-        selectedTask?.status = status
-        taskList?.value?.singleOrNull{ it.id == selectedTask?.id }?.status = status
-        taskListForSelectedDay?.value?.singleOrNull{ it.id == selectedTask?.id }?.status = status
+    fun updateStatus(newStatus: Int){
+        selectedTask.postValue(getSelectedTask()?.apply { status = newStatus })
+        taskList?.value?.singleOrNull{ it.id == getSelectedTask()?.id }?.apply { status = newStatus }
+        taskListForSelectedDay?.value?.singleOrNull{ it.id == getSelectedTask()?.id }?.apply { status = newStatus }
     }
 
 

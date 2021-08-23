@@ -41,7 +41,7 @@ class TasksAdapter(
         binding.daysLeftValueTxt.text = getDateDiff(Calendar.getInstance().time, task.dueDate).toString()
 
         binding.root.setOnClickListener{
-            viewModel.selectedTask = task
+            viewModel.selectedTask.postValue(task)
             openTaskDetailsListener?.openTaskDetails()
         }
     }
