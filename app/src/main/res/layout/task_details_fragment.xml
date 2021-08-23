@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.TaskDetailsFragment"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/yellow"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:paddingHorizontal="24dp"
+        android:paddingTop="34dp"
+        android:paddingBottom="80dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/taskDetailsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/task_details"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="46dp"
+            android:paddingBottom="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:id="@+id/taskTitleTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/amsipro_bold"
+                android:text="Task Title"
+                android:textColor="@color/red"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/lineView"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+
+                android:layout_marginTop="7dp"
+                android:background="@color/beige"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/taskTitleTxt" />
+
+            <TextView
+                android:id="@+id/dueDateTitleTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/amsipro_regular"
+                android:text="Due Date"
+                android:textColor="@color/blackSecondary"
+                android:textSize="13sp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lineView" />
+
+            <TextView
+                android:id="@+id/daysLeftTitleTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/amsipro_regular"
+                android:text="Days left"
+                android:textColor="@color/blackSecondary"
+                android:textSize="13sp"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lineView" />
+
+            <TextView
+                android:id="@+id/dueDateValueTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/amsipro_bold"
+                android:text="Aug 21 2021"
+                android:textColor="@color/red"
+
+                android:textSize="19sp"
+
+                app:layout_constraintEnd_toStartOf="@+id/daysLeftValueTxt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dueDateTitleTxt" />
+
+            <TextView
+                android:id="@+id/daysLeftValueTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/amsipro_bold"
+                android:gravity="end"
+                android:text="12"
+
+                android:textColor="@color/red"
+
+                android:textSize="19sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/dueDateValueTxt"
+                app:layout_constraintTop_toBottomOf="@+id/dueDateTitleTxt" />
+
+            <View
+                android:id="@+id/lineView2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+
+                android:layout_marginTop="7dp"
+                android:background="@color/beige"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/daysLeftValueTxt" />
+
+            <TextView
+                android:id="@+id/descTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:autoLink="all"
+                android:fontFamily="@font/amsipro_regular"
+                android:text="Prepare short presentation about functional reactive programming paradigm. This app might help you - https://apps.apple.com/us/app/rxmarbles/id1087272442"
+                android:textColor="@color/black"
+                android:textColorLink="@color/yellowDark"
+                android:textSize="13sp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lineView2" />
+
+            <View
+                android:id="@+id/lineView3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+
+                android:layout_marginTop="7dp"
+                android:background="@color/beige"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descTxt" />
+
+            <TextView
+                android:id="@+id/statusTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/amsipro_bold"
+                android:text="@string/unresolved"
+                android:textColor="@color/yellowMiddle"
+
+                android:textSize="19sp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lineView3" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/resolveBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+
+            android:foreground="?attr/selectableItemBackground"
+            android:background="@drawable/bg_rounded"
+            android:backgroundTint="@color/green"
+
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Resolve"
+            android:textColor="@color/white"
+            android:fontFamily="@font/amsipro_bold"
+            android:textSize="17sp"
+
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/canNotResolveBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/taskDetailsLayout"
+            />
+
+        <TextView
+            android:id="@+id/canNotResolveBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+
+            android:foreground="?attr/selectableItemBackground"
+            android:background="@drawable/bg_rounded"
+            android:backgroundTint="@color/red"
+
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Can't resolve"
+            android:textColor="@color/white"
+            android:fontFamily="@font/amsipro_bold"
+            android:textSize="17sp"
+
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/resolveBtn"
+            app:layout_constraintTop_toBottomOf="@+id/taskDetailsLayout"
+            />
+
+
+        <ImageView
+            android:id="@+id/statusImg"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+
+            android:layout_marginTop="50dp"
+            android:scaleType="fitCenter"
+
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/taskDetailsLayout"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

@@ -11,7 +11,7 @@ class FilterTest {
 
     @Test
     fun filterTest() = runBlocking{
-        val response = TasksRepository().getTask()
+        val response = TasksRepository().getTasks()
         val taskResult : TaskResult = response.body()!!
         val taskList : List<Task> = TasksRepository().filterByTargetDate(taskResult.taskList, getDateExistInDB())!!
 
@@ -24,7 +24,7 @@ class FilterTest {
 
     @Test
     fun filterAndSortTest() = runBlocking{
-        val response = TasksRepository().getTask()
+        val response = TasksRepository().getTasks()
         val taskResult : TaskResult = response.body()!!
         val taskList : List<Task> = TasksRepository().filterAndSort(taskResult.taskList, getDateExistInDB())!!
 

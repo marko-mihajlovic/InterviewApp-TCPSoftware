@@ -8,15 +8,14 @@ class BaseRepository {
 
     private val BASE_URL = "https://demo9094133.mockable.io/"
 
-    private fun getOkHttp(): OkHttpClient {
-        return OkHttpClient.Builder()
-            .build()
+    private val okHttp by lazy {
+        OkHttpClient.Builder().build()
     }
 
     private val retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(getOkHttp())
+            .client(okHttp)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

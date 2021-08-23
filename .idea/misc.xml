@@ -3,10 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MARKOPROJECTS/AndroidProjects/TCPSoftwareTasksApp/app/src/main/res/drawable-v24/bg_rounded.xml" value="0.33055555555555555" />
+        <entry key="..\:/MARKOPROJECTS/AndroidProjects/TCPSoftwareTasksApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.33055555555555555" />
+        <entry key="..\:/MARKOPROJECTS/AndroidProjects/TCPSoftwareTasksApp/app/src/main/res/drawable/bg_rounded.xml" value="0.19739583333333333" />
         <entry key="..\:/MARKOPROJECTS/AndroidProjects/TCPSoftwareTasksApp/app/src/main/res/drawable/ic_left_arrow.xml" value="0.3453703703703704" />
         <entry key="..\:/MARKOPROJECTS/AndroidProjects/TCPSoftwareTasksApp/app/src/main/res/drawable/ic_right_arrow.xml" value="0.3453703703703704" />
         <entry key="..\:/MARKOPROJECTS/AndroidProjects/TCPSoftwareTasksApp/app/src/main/res/layout/activity_main.xml" value="0.35208333333333336" />
         <entry key="..\:/MARKOPROJECTS/AndroidProjects/TCPSoftwareTasksApp/app/src/main/res/layout/row_task.xml" value="0.33" />
+        <entry key="..\:/MARKOPROJECTS/AndroidProjects/TCPSoftwareTasksApp/app/src/main/res/layout/task_details_fragment.xml" value="0.33" />
         <entry key="..\:/MARKOPROJECTS/AndroidProjects/TCPSoftwareTasksApp/app/src/main/res/layout/tasks_fragment.xml" value="0.33" />
         <entry key="..\:/MARKOPROJECTS/AndroidProjects/TCPSoftwareTasksApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.21145833333333333" />
       </map>

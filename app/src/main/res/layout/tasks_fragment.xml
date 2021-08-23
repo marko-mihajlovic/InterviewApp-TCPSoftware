@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:text="Loading..."
 
+        android:visibility="visible"
         android:textColor="@color/white"
         android:textSize="17sp"
         android:fontFamily="@font/amsipro_bold"
@@ -79,13 +80,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:id="@+id/noTasksLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
 
-        android:visibility="gone"
-        android:layout_margin="24dp"
+        android:fillViewport="true"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -93,38 +93,57 @@
         app:layout_constraintTop_toBottomOf="@+id/titleTxt"
         >
 
-        <ImageView
-            android:id="@+id/noTasksImg"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-
-            android:src="@drawable/empty_screen"
-            app:layout_constraintBottom_toTopOf="@+id/noTasksTxt"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-        <TextView
-            android:id="@+id/noTasksTxt"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
 
-            android:fontFamily="@font/amsipro_bold"
+            android:orientation="vertical"
             android:gravity="center"
-            android:text="No tasks for today!"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/noTasksImg"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintTop_toBottomOf="@+id/titleTxt"
+            >
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/noTasksImg"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+
+                android:layout_margin="24dp"
+
+                android:src="@drawable/empty_screen"
+                app:layout_constraintBottom_toTopOf="@+id/noTasksTxt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/noTasksTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+
+                android:fontFamily="@font/amsipro_bold"
+                android:gravity="center"
+                android:text="No tasks for today!"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:layout_margin="24dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/noTasksImg"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

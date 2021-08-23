@@ -3,14 +3,31 @@ package com.marko.tcpsoftware.tasksapp.repository.tasks
 import com.marko.tcpsoftware.tasksapp.model.Task
 import com.marko.tcpsoftware.tasksapp.model.TaskResult
 import com.marko.tcpsoftware.tasksapp.repository.BaseRepository
+import retrofit2.HttpException
 import retrofit2.Response
 import java.util.*
 
 class TasksRepository {
 
-    suspend fun getTask(): Response<TaskResult> {
+    suspend fun getTasks(): Response<TaskResult> {
         return BaseRepository().getService(TasksService::class.java).getTasks()
     }
+
+    suspend fun getTasksOrEmpty() : List<Task> {
+        val response = TasksRepository().getTasks()
+        return try {
+            if (response.isSuccessful) {
+                response.body()?.taskList ?: listOf()
+            } else {
+                listOf()
+            }
+        } catch (e: HttpException) {
+            listOf()
+        } catch (e: Throwable) {
+            listOf()
+        }
+    }
+
 
     fun defaultSort(taskList: List<Task>?): List<Task>? {
         return taskList?.sortedWith(
@@ -31,4 +48,6 @@ class TasksRepository {
             defaultSort(filterByTargetDate(taskList, targetDate))
         }
     }
+
+
 }

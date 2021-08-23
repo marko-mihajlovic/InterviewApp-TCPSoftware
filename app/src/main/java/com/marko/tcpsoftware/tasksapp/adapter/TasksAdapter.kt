@@ -5,11 +5,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.marko.tcpsoftware.tasksapp.databinding.RowTaskBinding
+import com.marko.tcpsoftware.tasksapp.interfaces.OpenTaskDetailsListener
 import com.marko.tcpsoftware.tasksapp.model.Task
 import com.marko.tcpsoftware.tasksapp.util.getDateDiff
+import com.marko.tcpsoftware.tasksapp.viewmodels.TasksViewModel
 import java.util.*
 
-class TasksAdapter : RecyclerView.Adapter<TasksAdapter.RowTasks>() {
+class TasksAdapter(
+    private val viewModel: TasksViewModel,
+    private val openTaskDetailsListener : OpenTaskDetailsListener?
+) : RecyclerView.Adapter<TasksAdapter.RowTasks>() {
 
     private var taskList: List<Task> = mutableListOf()
 
@@ -35,6 +40,10 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.RowTasks>() {
         binding.dueDateValueTxt.text = task.getDueDateFormatted()
         binding.daysLeftValueTxt.text = getDateDiff(Calendar.getInstance().time, task.dueDate).toString()
 
+        binding.root.setOnClickListener{
+            viewModel.selectedTask = task
+            openTaskDetailsListener?.openTaskDetails()
+        }
     }
 
 

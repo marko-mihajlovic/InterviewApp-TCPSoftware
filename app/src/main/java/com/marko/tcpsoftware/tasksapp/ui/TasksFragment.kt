@@ -5,13 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import com.marko.tcpsoftware.tasksapp.adapter.TasksAdapter
 import com.marko.tcpsoftware.tasksapp.databinding.TasksFragmentBinding
+import com.marko.tcpsoftware.tasksapp.interfaces.OpenTaskDetailsListener
 import com.marko.tcpsoftware.tasksapp.model.Task
 import com.marko.tcpsoftware.tasksapp.util.dateMinusOneDay
 import com.marko.tcpsoftware.tasksapp.util.datePlusOneDay
 import com.marko.tcpsoftware.tasksapp.util.getTodayDate
+import com.marko.tcpsoftware.tasksapp.viewmodels.TasksViewModel
 
 class TasksFragment : Fragment() {
 
@@ -22,7 +24,7 @@ class TasksFragment : Fragment() {
     }
 
     private lateinit var binding: TasksFragmentBinding
-    private var viewModel: TasksViewModel? = null
+    private val viewModel: TasksViewModel by activityViewModels()
     private var newsAdapter: TasksAdapter? = null
     private var visibleLayout : VISIBLE_LAYOUT = VISIBLE_LAYOUT.LOADING
     private var areButtonsEnabled : Boolean = false
@@ -43,19 +45,18 @@ class TasksFragment : Fragment() {
     }
 
     private fun confViewModel() {
-        viewModel = ViewModelProvider(this).get(TasksViewModel::class.java)
-        viewModel?.getTasksForSelectedDay()?.observe(viewLifecycleOwner, {
+        viewModel.getTasksForSelectedDay().observe(viewLifecycleOwner, {
             updateUI(it)
         })
 
-        viewModel?.titleDay?.observe(viewLifecycleOwner,{
+        viewModel.titleDay.observe(viewLifecycleOwner,{
             binding.titleTxt.text = it
             binding.noTasksTxt.text = "No tasks for $it"
         })
     }
 
     private fun confListAndAdapter() {
-        newsAdapter = TasksAdapter()
+        newsAdapter = TasksAdapter(viewModel, requireActivity() as OpenTaskDetailsListener)
         binding.listView.adapter = newsAdapter
     }
 
@@ -69,28 +70,28 @@ class TasksFragment : Fragment() {
 
 
     private fun toggleVisibleLayout() {
-        binding.noTasksLayout.visibility = if (visibleLayout==VISIBLE_LAYOUT.NO_TASKS) View.VISIBLE else View.GONE
-        binding.listView.visibility = if (visibleLayout==VISIBLE_LAYOUT.LIST) View.VISIBLE else View.GONE
-        binding.msgTxt.visibility = if (visibleLayout==VISIBLE_LAYOUT.LOADING) View.VISIBLE else View.GONE
+        binding.noTasksLayout.visibility = if (visibleLayout== VISIBLE_LAYOUT.NO_TASKS) View.VISIBLE else View.GONE
+        binding.listView.visibility = if (visibleLayout== VISIBLE_LAYOUT.LIST) View.VISIBLE else View.GONE
+        binding.msgTxt.visibility = if (visibleLayout== VISIBLE_LAYOUT.LOADING) View.VISIBLE else View.GONE
 
     }
 
     private fun onClickListeners(){
         binding.leftArrowBtn.setOnClickListener{
-            if(viewModel!=null && areButtonsEnabled) {
-                viewModel!!.updateSelectedDateAndList(dateMinusOneDay(viewModel!!.selectedDate))
+            if(areButtonsEnabled) {
+                viewModel.updateSelectedDateAndList(dateMinusOneDay(viewModel.selectedDate))
             }
         }
 
         binding.rightArrowBtn.setOnClickListener{
-            if(viewModel!=null && areButtonsEnabled) {
-                viewModel!!.updateSelectedDateAndList(datePlusOneDay(viewModel!!.selectedDate))
+            if(areButtonsEnabled) {
+                viewModel.updateSelectedDateAndList(datePlusOneDay(viewModel.selectedDate))
             }
         }
 
         binding.titleTxt.setOnClickListener{
-            if(viewModel!=null && areButtonsEnabled) {
-                viewModel!!.updateSelectedDateAndList(getTodayDate())
+            if(areButtonsEnabled) {
+                viewModel.updateSelectedDateAndList(getTodayDate())
             }
         }
     }

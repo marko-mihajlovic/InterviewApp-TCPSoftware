@@ -3,6 +3,7 @@ package com.marko.tcpsoftware.tasksapp
 import com.marko.tcpsoftware.tasksapp.model.Task
 import com.marko.tcpsoftware.tasksapp.model.TaskResult
 import com.marko.tcpsoftware.tasksapp.repository.tasks.TasksRepository
+import com.marko.tcpsoftware.tasksapp.util.getTodayDate
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
@@ -11,7 +12,7 @@ class FetchTest {
 
     @Test
     fun fetchV2() = runBlocking{
-        val response = TasksRepository().getTask()
+        val response = TasksRepository().getTasks()
 
         if (response.isSuccessful) {
             print("Successful\n")
@@ -29,7 +30,7 @@ class FetchTest {
 
     @Test
     fun fetchAndSortV2() = runBlocking{
-        val response = TasksRepository().getTask()
+        val response = TasksRepository().getTasks()
 
         if (response.isSuccessful) {
             print("Successful\n")
@@ -46,5 +47,16 @@ class FetchTest {
             print("Error: ${response.code()}")
         }
     }
+
+    @Test
+    fun testTask() {
+
+        val task = Task("id1", getTodayDate(), getTodayDate(), "title1", "desc1", 4, -1)
+        println("task: ${task.toStringShort()}")
+
+    }
+
+
+
 
 }

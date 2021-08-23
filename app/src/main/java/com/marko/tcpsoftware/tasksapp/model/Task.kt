@@ -1,6 +1,7 @@
 package com.marko.tcpsoftware.tasksapp.model
 
 import com.google.gson.annotations.SerializedName
+import com.marko.tcpsoftware.tasksapp.util.STATUS_UNRESOLVED
 import com.marko.tcpsoftware.tasksapp.util.getReadableFormat
 import java.util.*
 
@@ -11,9 +12,11 @@ data class Task(
     @SerializedName("Title") val title: String,
     @SerializedName("Description") val description: String,
     @SerializedName("Priority") val priority: Int,
+    var status: Int = STATUS_UNRESOLVED,
 ){
 
-    fun getTargetDateFormatted() : String{
+
+    private fun getTargetDateFormatted() : String{
         return getReadableFormat(targetDate)
     }
 
@@ -22,8 +25,7 @@ data class Task(
     }
 
     fun toStringShort(): String {
-        return "Task(priority=$priority, targetDate=${getTargetDateFormatted()} )"
+        return "Task(priority=$priority, targetDate=${getTargetDateFormatted()}, status=$status )"
     }
-
 
 }

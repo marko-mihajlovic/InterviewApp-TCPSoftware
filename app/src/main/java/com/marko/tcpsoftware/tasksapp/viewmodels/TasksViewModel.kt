@@ -1,4 +1,4 @@
-package com.marko.tcpsoftware.tasksapp.ui
+package com.marko.tcpsoftware.tasksapp.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,18 +10,18 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import java.util.*
 
-class TasksViewModel(
-    private val today : Date = getTodayDate() // getTodayDate() or getDateExistInDB if we want to test app
-) : ViewModel() {
+class TasksViewModel : ViewModel() {
 
+    val today : Date = getTodayDate() // getTodayDate() or getDateExistInDB if we want to test app
     var selectedDate : Date = today
 
     private var taskList : MutableLiveData<List<Task>>? = null
     private var taskListForSelectedDay : MutableLiveData<List<Task>>? = null
     var titleDay : MutableLiveData<String> = MutableLiveData("Today")
+    var selectedTask : Task? = null
+
 
     fun getTasksForSelectedDay(): MutableLiveData<List<Task>> {
         if (taskListForSelectedDay == null || taskList == null) {
@@ -37,25 +37,9 @@ class TasksViewModel(
     private val ioScope by lazy { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
     private fun loadTaskListAsync(){
         ioScope.launch {
-            loadTaskList()
+            updateLists(TasksRepository().getTasksOrEmpty())
         }
     }
-
-    private suspend fun loadTaskList() {
-        val response = TasksRepository().getTask()
-        try {
-            if (response.isSuccessful) {
-                updateLists(response.body()?.taskList)
-            } else {
-                updateLists(mutableListOf())
-            }
-        } catch (e: HttpException) {
-            updateLists(mutableListOf())
-        } catch (e: Throwable) {
-            updateLists(mutableListOf())
-        }
-    }
-
 
     private fun updateLists(taskList : List<Task>?){
         this.taskList?.postValue(taskList)
@@ -70,13 +54,21 @@ class TasksViewModel(
     private fun updateSelectedDayList(taskList : List<Task>?){
         taskListForSelectedDay?.postValue(TasksRepository().filterAndSort(taskList, selectedDate))
 
-        if(selectedDate==today){
+        if(isTodaySelected()){
             titleDay.postValue("Today")
         }else{
             titleDay.postValue(getReadableFormat(selectedDate))
         }
+    }
 
+    fun updateStatus(status: Int){
+        selectedTask?.status = status
+        taskList?.value?.singleOrNull{ it.id == selectedTask?.id }?.status = status
+        taskListForSelectedDay?.value?.singleOrNull{ it.id == selectedTask?.id }?.status = status
     }
 
 
+    fun isTodaySelected(): Boolean {
+        return selectedDate==today
+    }
 }
