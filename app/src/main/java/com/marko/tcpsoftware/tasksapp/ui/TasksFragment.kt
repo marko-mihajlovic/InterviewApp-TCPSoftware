@@ -58,7 +58,7 @@ class TasksFragment : Fragment() {
     }
 
     private fun confListAndAdapter() {
-        newsAdapter = TasksAdapter(viewModel, requireActivity() as OpenTaskDetailsListener)
+        newsAdapter = TasksAdapter(requireContext(), viewModel, requireActivity() as OpenTaskDetailsListener)
         binding.listView.adapter = newsAdapter
     }
 

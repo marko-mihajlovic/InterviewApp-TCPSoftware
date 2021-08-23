@@ -18,11 +18,12 @@ fun setTextColor(context: Context?, view: TextView, @ColorRes color : Int){
     view.setTextColor(context.getColor(color))
 }
 
-fun setImage(context: Context?, view: ImageView, @DrawableRes img : Int){
+fun setImage(context: Context?, view: ImageView, @DrawableRes img : Int, visibility : Int = View.VISIBLE){
     if(context==null)
         return
 
     view.setImageResource(img)
+    view.visibility = visibility
 }
 
 fun toggleKeyboard(activity: Activity, view : View?, visible : Boolean){

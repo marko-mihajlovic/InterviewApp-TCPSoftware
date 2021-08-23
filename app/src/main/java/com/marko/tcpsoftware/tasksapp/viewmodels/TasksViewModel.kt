@@ -69,10 +69,15 @@ class TasksViewModel : ViewModel() {
 
     fun updateStatus(newStatus: Int){
         selectedTask.postValue(getSelectedTask()?.apply { status = newStatus })
-        taskList?.value?.singleOrNull{ it.id == getSelectedTask()?.id }?.apply { status = newStatus }
-        taskListForSelectedDay?.value?.singleOrNull{ it.id == getSelectedTask()?.id }?.apply { status = newStatus }
+
+        updateStatusInList(taskList, newStatus)
+        updateStatusInList(taskListForSelectedDay, newStatus)
     }
 
+    private fun updateStatusInList(list : MutableLiveData<List<Task>>?, newStatus: Int){
+        list?.value?.singleOrNull{ it.id == getSelectedTask()?.id }?.apply { status = newStatus }
+        list?.postValue(list.value)
+    }
 
     fun isTodaySelected(): Boolean {
         return selectedDate==today

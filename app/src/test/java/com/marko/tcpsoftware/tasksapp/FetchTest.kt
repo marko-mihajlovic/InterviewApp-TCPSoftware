@@ -51,7 +51,7 @@ class FetchTest {
     @Test
     fun testTask() {
 
-        val task = Task("id1", getTodayDate(), getTodayDate(), "title1", "desc1", 4, -1)
+        val task = Task("id1", getTodayDate(), getTodayDate(), "title1", "desc1", 4, -1, "comm")
         println("task: ${task.toStringShort()}")
 
     }

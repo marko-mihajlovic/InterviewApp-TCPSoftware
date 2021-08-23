@@ -28,16 +28,34 @@
 
         <TextView
             android:id="@+id/taskTitleTxt"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Task Title"
             android:textColor="@color/red"
             android:fontFamily="@font/amsipro_bold"
             android:textSize="19sp"
 
+            app:layout_goneMarginStart="0dp"
+            android:layout_marginStart="16dp"
+
+            app:layout_constraintStart_toEndOf="@+id/taskStatusImg"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/taskStatusImg"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+
+            android:layout_margin="4dp"
+            android:padding="4dp"
+
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/taskTitleTxt"
+            app:layout_constraintBottom_toBottomOf="@+id/taskTitleTxt"
+            />
+
 
         <View
             android:id="@+id/lineView"
